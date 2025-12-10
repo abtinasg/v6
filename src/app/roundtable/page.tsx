@@ -18,7 +18,7 @@ interface RoundtableMessage {
 const ROUND_TABLE_TITLE_FA = 'میزگرد';
 const CATEGORY_LABELS: Record<string, { title: string; badge: string }> = {
   tech: { title: '🔧 تکنولوژی', badge: 'تکنولوژی' },
-  business: { title: '💼 کسب و کار', badge: 'کسب‌وکار' },
+  business: { title: '💼 کسب و کار', badge: 'کسب و کار' },
   philosophy: { title: '🧘 فلسفه و روانشناسی', badge: 'فلسفه و روانشناسی' },
   design: { title: '✏️ طراحی', badge: 'طراحی' },
 };
@@ -283,7 +283,7 @@ export default function RoundtablePage() {
         </button>
         
         <div className="flex items-center gap-3">
-          <h1 className="font-semibold">میزگرد</h1>
+          <h1 className="font-semibold">{ROUND_TABLE_TITLE_FA}</h1>
           <div className="flex -space-x-2">
             {selectedPersonas.map((personaId, idx) => {
               const persona = getPersona(personaId);
