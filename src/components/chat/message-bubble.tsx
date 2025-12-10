@@ -26,9 +26,9 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
       className="flex gap-5 px-6 py-6"
     >
       {/* Avatar - Premium */}
-      <div className="w-11 h-11 rounded-2xl bg-surface-elevated flex items-center justify-center flex-shrink-0 text-lg shadow-soft-sm border border-border-subtle">
+      <div className="w-12 h-12 rounded-[18px] bg-surface-elevated flex items-center justify-center flex-shrink-0 text-lg shadow-soft border border-border-subtle">
         {role === 'user' ? (
-          <span className="text-muted">👤</span>
+          <span className="text-muted/80">👤</span>
         ) : (
           <span>{avatar}</span>
         )}
@@ -37,13 +37,13 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
       {/* Content */}
       <div className="flex-1 min-w-0 pt-1">
         {/* Name */}
-        <p className="text-xs font-semibold mb-3 text-muted-dark">
+        <p className="text-xs font-semibold mb-3 text-muted-dark/80">
           {role === 'user' ? 'شما' : displayName}
         </p>
         
         {/* Message */}
         <div className="prose prose-invert max-w-none">
-          <p className="text-foreground whitespace-pre-wrap leading-loose text-base">
+          <p className="text-foreground/95 whitespace-pre-wrap leading-loose text-base">
             {content}
             {isStreaming && (
               <span className="inline-block w-2 h-5 bg-accent animate-pulse-subtle mr-1 rounded-sm" />
