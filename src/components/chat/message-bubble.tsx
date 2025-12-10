@@ -23,10 +23,10 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="flex gap-4 px-4 py-5"
+      className="flex gap-5 px-6 py-6"
     >
-      {/* Avatar */}
-      <div className="w-9 h-9 rounded-full bg-surface flex items-center justify-center flex-shrink-0 text-base shadow-soft">
+      {/* Avatar - Premium */}
+      <div className="w-11 h-11 rounded-2xl bg-surface-elevated flex items-center justify-center flex-shrink-0 text-lg shadow-soft-sm border border-border-subtle">
         {role === 'user' ? (
           <span className="text-muted">👤</span>
         ) : (
@@ -37,16 +37,16 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
       {/* Content */}
       <div className="flex-1 min-w-0 pt-1">
         {/* Name */}
-        <p className="text-xs font-medium mb-2 text-muted">
+        <p className="text-xs font-semibold mb-3 text-muted-dark">
           {role === 'user' ? 'شما' : displayName}
         </p>
         
         {/* Message */}
         <div className="prose prose-invert max-w-none">
-          <p className="text-foreground whitespace-pre-wrap leading-relaxed text-[15px]">
+          <p className="text-foreground whitespace-pre-wrap leading-loose text-base">
             {content}
             {isStreaming && (
-              <span className="inline-block w-1.5 h-4 bg-accent animate-pulse-subtle mr-1 rounded-sm" />
+              <span className="inline-block w-2 h-5 bg-accent animate-pulse-subtle mr-1 rounded-sm" />
             )}
           </p>
         </div>
