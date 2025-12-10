@@ -125,7 +125,7 @@ export default function RoundtablePage() {
 
             <div className="flex-1 text-right">
               <p className="text-[11px] uppercase tracking-[0.2em] text-muted-dark/70 mb-1">{ROUND_TABLE_TITLE_FA}</p>
-              <h1 className="text-xl sm:text-2xl font-extrabold">میزگرد هوش مصنوعی</h1>
+              <h1 className="text-xl sm:text-2xl font-extrabold">{`${ROUND_TABLE_TITLE_FA} هوش مصنوعی`}</h1>
               <p className="text-sm text-muted">یک میزگرد با شخصیت‌های معروف بسازید و نظرات متفاوت بگیرید</p>
             </div>
 
