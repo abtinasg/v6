@@ -1,4 +1,7 @@
-import { pgTable, text, timestamp, integer, uuid, jsonb, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, integer, uuid, jsonb, boolean, pgEnum } from 'drizzle-orm/pg-core';
+
+// Chat mode enum for type safety
+export const chatModeEnum = pgEnum('chat_mode', ['chat', 'analyze', 'brainstorm', 'debate', 'solve', 'roundtable']);
 
 // Users table
 export const users = pgTable('users', {
@@ -25,7 +28,7 @@ export const chats = pgTable('chats', {
   id: uuid('id').primaryKey().defaultRandom(),
   userId: uuid('user_id').notNull().references(() => users.id),
   title: text('title').notNull().default('New Chat'),
-  mode: text('mode').notNull().default('chat'), // analyze, brainstorm, debate, solve, chat, roundtable
+  mode: chatModeEnum('mode').notNull().default('chat'),
   models: jsonb('models').default([]), // Selected AI models for this chat
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),

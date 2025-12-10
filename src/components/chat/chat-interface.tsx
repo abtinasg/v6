@@ -5,9 +5,22 @@ import { Send, Loader2, Menu } from 'lucide-react';
 import { useAppStore } from '@/store';
 import { Button } from '@/components/ui/button';
 import { MessageBubble } from './message-bubble';
-import { CHAT_MODES } from '@/lib/models';
+import { CHAT_MODES, type ChatMode } from '@/lib/models';
 import { motion } from 'framer-motion';
 import type { Message } from '@/types';
+
+// Helper function to check if authentication is required
+function requiresAuthentication(
+  currentMode: ChatMode,
+  messagesLength: number,
+  isAuthenticated: boolean
+): boolean {
+  if (isAuthenticated) return false;
+  // AI modes always require authentication
+  if (currentMode !== 'chat') return true;
+  // First message in chat mode requires authentication
+  return messagesLength === 0;
+}
 
 export function ChatInterface() {
   const {
@@ -46,8 +59,8 @@ export function ChatInterface() {
     
     if (!input.trim() || isLoading) return;
 
-    // Check authentication for non-chat modes or first message
-    if (!isAuthenticated && (currentMode !== 'chat' || messages.length === 0)) {
+    // Check if authentication is required before proceeding
+    if (requiresAuthentication(currentMode, messages.length, isAuthenticated)) {
       setShowAuthModal(true);
       return;
     }
