@@ -37,7 +37,7 @@ export function Sidebar() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-br from-background-elevated to-background rounded-2xl flex items-center justify-center shadow-soft-sm">
-              <span className="text-2xl drop-shadow-glow">✦</span>
+              <span className="text-2xl">✦</span>
             </div>
             <div>
               <span className="text-xl font-extrabold text-foreground block tracking-tight">HUNO</span>

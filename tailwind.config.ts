@@ -35,10 +35,6 @@ const config: Config = {
         'premium': '0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3)',
         'depth': '0 4px 24px rgba(0, 0, 0, 0.35)',
       },
-      spacing: {
-        '18': '4.5rem',
-        '22': '5.5rem',
-      },
     },
   },
   plugins: [],

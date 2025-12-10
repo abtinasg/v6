@@ -292,7 +292,7 @@ export function ChatInterface() {
               {/* HUNO Icon - Enhanced with depth and glow */}
               <div className="w-24 h-24 bg-gradient-to-br from-surface-elevated to-surface rounded-[28px] flex items-center justify-center mx-auto mb-8 shadow-depth relative">
                 <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-accent/5 to-transparent"></div>
-                <span className="text-5xl relative z-10 drop-shadow-glow">✦</span>
+                <span className="text-5xl relative z-10">✦</span>
               </div>
               
               {/* HUNO Name - Bolder and clearer */}
