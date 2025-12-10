@@ -15,6 +15,14 @@ interface RoundtableMessage {
   personaId?: string;
 }
 
+const ROUND_TABLE_TITLE_FA = 'میزگرد';
+const CATEGORY_LABELS: Record<string, { title: string; badge: string }> = {
+  tech: { title: '🔧 تکنولوژی', badge: 'تکنولوژی' },
+  business: { title: '💼 کسب و کار', badge: 'کسب‌وکار' },
+  philosophy: { title: '🧘 فلسفه و روانشناسی', badge: 'فلسفه و روانشناسی' },
+  design: { title: '✏️ طراحی', badge: 'طراحی' },
+};
+
 export default function RoundtablePage() {
   const { isAuthenticated, setShowAuthModal } = useAppStore();
   const [selectedPersonas, setSelectedPersonas] = useState<string[]>([]);
@@ -101,7 +109,6 @@ export default function RoundtablePage() {
   };
 
   const categories = [...new Set(ROUNDTABLE_PERSONAS.map(p => p.category))];
-  const roundtableTitle = 'میزگرد';
 
   if (step === 'select') {
     return (
@@ -117,7 +124,7 @@ export default function RoundtablePage() {
             </Link>
 
             <div className="flex-1 text-right">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-muted-dark/70 mb-1">{roundtableTitle}</p>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-muted-dark/70 mb-1">{ROUND_TABLE_TITLE_FA}</p>
               <h1 className="text-xl sm:text-2xl font-extrabold">میزگرد هوش مصنوعی</h1>
               <p className="text-sm text-muted">یک میزگرد با شخصیت‌های معروف بسازید و نظرات متفاوت بگیرید</p>
             </div>
@@ -200,10 +207,7 @@ export default function RoundtablePage() {
                       <span className="text-lg">{persona.avatar}</span>
                       <span className="font-semibold">{persona.nameFa}</span>
                       <span className="text-[10px] text-muted-dark bg-background/70 px-2 py-0.5 rounded-full">
-                        {persona.category === 'tech' && 'تکنولوژی'}
-                        {persona.category === 'business' && 'کسب‌وکار'}
-                        {persona.category === 'philosophy' && 'فلسفه'}
-                        {persona.category === 'design' && 'طراحی'}
+                        {CATEGORY_LABELS[persona.category]?.badge || persona.category}
                       </span>
                       <span className="w-5 h-5 rounded-full bg-border-subtle flex items-center justify-center text-muted text-xs hover:text-red-300 hover:bg-red-500/20 transition-colors">
                         ×
@@ -219,10 +223,7 @@ export default function RoundtablePage() {
           {categories.map(category => (
             <div key={category} className="space-y-3">
               <h3 className="text-sm font-semibold text-muted flex items-center gap-2 px-1">
-                {category === 'tech' && '🔧 تکنولوژی'}
-                {category === 'business' && '💼 کسب و کار'}
-                {category === 'philosophy' && '🧘 فلسفه و روانشناسی'}
-                {category === 'design' && '✏️ طراحی'}
+                {CATEGORY_LABELS[category]?.title || category}
               </h3>
               <div className="grid md:grid-cols-2 gap-3">
                 {ROUNDTABLE_PERSONAS.filter(p => p.category === category).map(persona => {
@@ -251,7 +252,7 @@ export default function RoundtablePage() {
                           <div className="flex items-center justify-between gap-2">
                             <h4 className="font-bold text-foreground">{persona.nameFa}</h4>
                             <span className="text-[11px] text-muted-dark bg-surface-hover px-2 py-1 rounded-lg">
-                              {persona.name || persona.nameFa}
+                              {CATEGORY_LABELS[persona.category]?.badge || persona.category}
                             </span>
                           </div>
                           <p className="text-xs text-muted truncate">{persona.description}</p>
