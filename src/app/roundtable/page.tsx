@@ -104,64 +104,110 @@ export default function RoundtablePage() {
 
   if (step === 'select') {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-background text-foreground lg:mr-72">
         {/* Header */}
-        <header className="bg-white border-b border-gray-100 px-4 py-4">
-          <div className="max-w-4xl mx-auto flex items-center gap-4">
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ArrowRight className="w-4 h-4 ml-2" />
+        <header className="sticky top-0 z-10 bg-background-elevated/80 backdrop-blur border-b border-border-subtle px-4 py-4">
+          <div className="max-w-5xl mx-auto flex items-center gap-3 justify-between">
+            <Link href="/" className="flex-shrink-0">
+              <Button variant="secondary" size="sm" className="rounded-xl gap-2">
+                <ArrowRight className="w-4 h-4 ml-1" />
                 بازگشت
               </Button>
             </Link>
-            <div className="flex-1">
-              <h1 className="text-lg font-bold text-gray-900">میزگرد هوش مصنوعی</h1>
-              <p className="text-sm text-gray-500">یک میزگرد با شخصیت‌های معروف بسازید</p>
-            </div>
-          </div>
-        </header>
 
-        <main className="max-w-4xl mx-auto px-4 py-8">
-          {/* Selected Personas */}
-          <div className="bg-white rounded-2xl p-6 border border-gray-100 mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-gray-400" />
-                <span className="font-medium text-gray-900">
-                  اعضای میزگرد ({selectedPersonas.length}/4)
-                </span>
+            <div className="flex-1 text-right">
+              <p className="text-[11px] uppercase tracking-[0.2em] text-muted-dark/70 mb-1">Roundtable</p>
+              <h1 className="text-xl sm:text-2xl font-extrabold">میزگرد هوش مصنوعی</h1>
+              <p className="text-sm text-muted">یک میزگرد با شخصیت‌های معروف بسازید و نظرات متفاوت بگیرید</p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="px-3 py-2 rounded-xl bg-surface-hover border border-border-subtle text-sm font-semibold flex items-center gap-2">
+                <Users className="w-4 h-4 text-muted" />
+                <span>{selectedPersonas.length}/4</span>
               </div>
               {selectedPersonas.length >= 2 && (
-                <Button onClick={startRoundtable}>
+                <Button onClick={startRoundtable} size="sm" className="rounded-xl shadow-glow">
                   شروع میزگرد
                 </Button>
               )}
             </div>
-            
+          </div>
+        </header>
+
+        <main className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+          {/* Hero */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="relative overflow-hidden rounded-3xl border border-border-subtle bg-gradient-to-br from-surface via-background-elevated to-surface-elevated shadow-depth p-6 sm:p-8"
+          >
+            <div className="absolute -left-10 -bottom-10 w-48 h-48 bg-accent/10 blur-3xl rounded-full" />
+            <div className="absolute left-1/2 -top-10 w-40 h-40 bg-accent-soft/10 blur-3xl rounded-full" />
+
+            <div className="relative flex flex-col sm:flex-row sm:items-center gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-surface-elevated border border-border-subtle shadow-soft flex items-center justify-center text-3xl">
+                <Users className="w-8 h-8 text-accent" />
+              </div>
+              <div className="flex-1 space-y-3 text-right">
+                <p className="text-sm text-muted-dark">شخصیت‌های مختلف را انتخاب کنید و از دیدگاه آن‌ها بشنوید</p>
+                <div className="flex flex-wrap justify-end gap-2">
+                  <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">حداقل ۲ شخصیت</span>
+                  <span className="px-3 py-1 rounded-full bg-surface-hover text-xs font-semibold text-muted">حداکثر ۴ شخصیت</span>
+                  <span className="px-3 py-1 rounded-full bg-surface-hover text-xs font-semibold text-muted">پوشش حوزه‌های مختلف</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Selected Personas */}
+          <div className="bg-surface-elevated rounded-3xl p-6 border border-border-subtle shadow-depth">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-surface-hover flex items-center justify-center">
+                  <Users className="w-5 h-5 text-muted" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-dark/80 font-semibold">اعضای میزگرد</p>
+                  <p className="text-xs text-muted">شخصیت‌های انتخاب‌شده در اینجا نمایش داده می‌شوند</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-dark bg-surface-hover px-3 py-1.5 rounded-xl border border-border-subtle">
+                  {selectedPersonas.length === 0 ? 'منتظر انتخاب شما' : 'برای حذف روی هر کدام کلیک کنید'}
+                </span>
+              </div>
+            </div>
+
             {selectedPersonas.length === 0 ? (
-              <p className="text-gray-500 text-center py-4">
+              <div className="text-center py-6 text-muted">
                 حداقل ۲ شخصیت انتخاب کنید تا میزگرد آغاز شود
-              </p>
+              </div>
             ) : (
               <div className="flex flex-wrap gap-2">
                 {selectedPersonas.map(personaId => {
                   const persona = getPersona(personaId);
                   return persona ? (
-                    <motion.div
+                    <motion.button
                       key={personaId}
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1.5"
+                      onClick={() => togglePersona(personaId)}
+                      className="flex items-center gap-2 bg-surface-hover border border-border-subtle rounded-full px-3 py-1.5 text-sm hover:border-accent/40 transition-all"
                     >
                       <span className="text-lg">{persona.avatar}</span>
-                      <span className="text-sm font-medium">{persona.nameFa}</span>
-                      <button
-                        onClick={() => togglePersona(personaId)}
-                        className="w-5 h-5 rounded-full bg-gray-300 hover:bg-red-400 hover:text-white flex items-center justify-center text-xs transition-colors"
-                      >
+                      <span className="font-semibold">{persona.nameFa}</span>
+                      <span className="text-[10px] text-muted-dark bg-background/70 px-2 py-0.5 rounded-full">
+                        {persona.category === 'tech' && 'تکنولوژی'}
+                        {persona.category === 'business' && 'کسب‌وکار'}
+                        {persona.category === 'philosophy' && 'فلسفه'}
+                        {persona.category === 'design' && 'طراحی'}
+                      </span>
+                      <span className="w-5 h-5 rounded-full bg-border-subtle flex items-center justify-center text-muted text-xs hover:text-red-300 hover:bg-red-500/20 transition-colors">
                         ×
-                      </button>
-                    </motion.div>
+                      </span>
+                    </motion.button>
                   ) : null;
                 })}
               </div>
@@ -170,42 +216,50 @@ export default function RoundtablePage() {
 
           {/* Personas by Category */}
           {categories.map(category => (
-            <div key={category} className="mb-6">
-              <h3 className="text-sm font-medium text-gray-500 mb-3 px-1">
+            <div key={category} className="space-y-3">
+              <h3 className="text-sm font-semibold text-muted flex items-center gap-2 px-1">
                 {category === 'tech' && '🔧 تکنولوژی'}
                 {category === 'business' && '💼 کسب و کار'}
                 {category === 'philosophy' && '🧘 فلسفه و روانشناسی'}
                 {category === 'design' && '✏️ طراحی'}
               </h3>
               <div className="grid md:grid-cols-2 gap-3">
-                {ROUNDTABLE_PERSONAS.filter(p => p.category === category).map(persona => (
-                  <motion.button
-                    key={persona.id}
-                    onClick={() => togglePersona(persona.id)}
-                    className={`relative bg-white rounded-xl p-4 border-2 transition-all text-right ${
-                      selectedPersonas.includes(persona.id)
-                        ? 'border-gray-900 shadow-md'
-                        : 'border-gray-100 hover:border-gray-300'
-                    }`}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {selectedPersonas.includes(persona.id) && (
-                      <div className="absolute top-3 left-3 w-5 h-5 bg-gray-900 rounded-full flex items-center justify-center">
-                        <Check className="w-3 h-3 text-white" />
+                {ROUNDTABLE_PERSONAS.filter(p => p.category === category).map(persona => {
+                  const selected = selectedPersonas.includes(persona.id);
+                  return (
+                    <motion.button
+                      key={persona.id}
+                      onClick={() => togglePersona(persona.id)}
+                      className={`relative text-right rounded-2xl p-4 border transition-all bg-surface hover:-translate-y-0.5 ${
+                        selected
+                          ? 'border-accent/60 shadow-glow-soft'
+                          : 'border-border-subtle hover:border-accent/30'
+                      }`}
+                      whileTap={{ scale: 0.99 }}
+                    >
+                      {selected && (
+                        <div className="absolute top-3 left-3 w-6 h-6 bg-accent text-background rounded-full flex items-center justify-center shadow-glow-soft">
+                          <Check className="w-3.5 h-3.5" />
+                        </div>
+                      )}
+                      <div className="flex items-start gap-3">
+                        <div className="w-12 h-12 rounded-2xl bg-surface-elevated border border-border-subtle flex items-center justify-center text-2xl flex-shrink-0">
+                          {persona.avatar}
+                        </div>
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <h4 className="font-bold text-foreground">{persona.nameFa}</h4>
+                            <span className="text-[11px] text-muted-dark bg-surface-hover px-2 py-1 rounded-lg">
+                              {persona.name}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted truncate">{persona.description}</p>
+                          <p className="text-[11px] text-muted-dark/80 truncate">{persona.thinkingStyle}</p>
+                        </div>
                       </div>
-                    )}
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-2xl flex-shrink-0">
-                        {persona.avatar}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-gray-900">{persona.nameFa}</h4>
-                        <p className="text-sm text-gray-600 mb-1">{persona.name}</p>
-                        <p className="text-xs text-gray-400 truncate">{persona.thinkingStyle}</p>
-                      </div>
-                    </div>
-                  </motion.button>
-                ))}
+                    </motion.button>
+                  );
+                })}
               </div>
             </div>
           ))}
@@ -216,26 +270,26 @@ export default function RoundtablePage() {
 
   // Chat View
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-screen bg-background text-foreground lg:mr-72">
       {/* Header */}
-      <header className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-white">
+      <header className="flex items-center justify-between px-4 py-4 border-b border-border-subtle bg-background-elevated/80 backdrop-blur sticky top-0 z-10">
         <button
           onClick={() => setStep('select')}
-          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-xl hover:bg-surface-hover border border-border-subtle transition-colors"
         >
-          <ArrowRight className="w-5 h-5 text-gray-600" />
+          <ArrowRight className="w-5 h-5 text-muted" />
         </button>
         
-        <div className="flex items-center gap-2">
-          <h1 className="font-semibold text-gray-900">میزگرد</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="font-semibold">میزگرد</h1>
           <div className="flex -space-x-2">
             {selectedPersonas.map((personaId, idx) => {
               const persona = getPersona(personaId);
               return persona ? (
                 <div
                   key={personaId}
-                  className="w-7 h-7 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-sm"
-                  style={{ zIndex: 4 - idx }}
+                  className="w-8 h-8 rounded-xl bg-surface-elevated border border-border-subtle flex items-center justify-center text-sm shadow-soft"
+                  style={{ zIndex: 6 - idx }}
                   title={persona.nameFa}
                 >
                   {persona.avatar}
@@ -249,7 +303,7 @@ export default function RoundtablePage() {
       </header>
 
       {/* Messages */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto bg-background">
         <AnimatePresence>
           {messages.map((message) => {
             const persona = message.personaId ? getPersona(message.personaId) : null;
@@ -259,25 +313,25 @@ export default function RoundtablePage() {
                 key={message.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`flex gap-3 px-4 py-6 ${
-                  message.role === 'user' ? 'bg-white' : 'bg-gray-50'
+                className={`flex gap-3 px-4 py-6 border-b border-border-subtle/60 ${
+                  message.role === 'user' ? 'bg-background' : 'bg-surface'
                 }`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-lg ${
-                  message.role === 'user' ? 'bg-gray-900' : 'bg-white border border-gray-200'
+                <div className={`w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 text-lg ${
+                  message.role === 'user' ? 'bg-accent/10 text-accent' : 'bg-surface-elevated border border-border-subtle'
                 }`}>
                   {message.role === 'user' ? (
-                    <span className="text-white text-sm">👤</span>
+                    <span className="text-sm">👤</span>
                   ) : (
                     <span>{persona?.avatar || '🤖'}</span>
                   )}
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-500 mb-1">
+                  <p className="text-xs font-semibold text-muted-dark/80 mb-2">
                     {message.role === 'user' ? 'شما' : persona?.nameFa || 'AI'}
                   </p>
-                  <p className="text-gray-900 whitespace-pre-wrap leading-relaxed">
+                  <p className="text-foreground whitespace-pre-wrap leading-loose">
                     {message.content}
                   </p>
                 </div>
@@ -287,12 +341,12 @@ export default function RoundtablePage() {
         </AnimatePresence>
         
         {isLoading && (
-          <div className="flex gap-3 px-4 py-6 bg-gray-50">
-            <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center">
-              <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
+          <div className="flex gap-3 px-4 py-6 bg-surface border-b border-border-subtle/60">
+            <div className="w-10 h-10 rounded-2xl bg-surface-elevated border border-border-subtle flex items-center justify-center">
+              <Loader2 className="w-4 h-4 animate-spin text-accent" />
             </div>
             <div className="flex-1">
-              <p className="text-sm text-gray-400">در حال فکر کردن...</p>
+              <p className="text-sm text-muted">در حال فکر کردن...</p>
             </div>
           </div>
         )}
@@ -301,15 +355,15 @@ export default function RoundtablePage() {
       </main>
 
       {/* Input */}
-      <div className="border-t border-gray-100 bg-white p-4">
+      <div className="border-t border-border-subtle bg-background-elevated/70 backdrop-blur px-4 py-4">
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-          <div className="relative flex items-end gap-2 bg-gray-50 rounded-2xl p-2">
+          <div className="relative flex items-end gap-3 bg-surface-elevated/90 rounded-2xl p-3 border border-border-subtle shadow-soft">
             <textarea
               ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="سوال خود را از میزگرد بپرسید..."
-              className="flex-1 resize-none bg-transparent px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:outline-none max-h-[200px]"
+              className="flex-1 resize-none bg-transparent px-3 py-2 text-foreground placeholder:text-muted-dark/70 focus:outline-none max-h-[200px]"
               rows={1}
               dir="rtl"
             />
