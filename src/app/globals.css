@@ -6,10 +6,10 @@
 
 :root {
   --font-vazirmatn: 'Vazirmatn', system-ui, sans-serif;
-  --background: #0A0A0A;
-  --background-elevated: #0D0D0D;
-  --surface: #121212;
-  --surface-elevated: #161616;
+  --background: #0E0E0E;
+  --background-elevated: #111111;
+  --surface: #141414;
+  --surface-elevated: #171717;
   --foreground: #F5F5F5;
   --muted: #9CA3AF;
   --muted-dark: #6B7280;
