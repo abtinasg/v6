@@ -60,8 +60,21 @@ export function ChatInterface() {
   }, []);
 
   const handleModelSelect = (modelId: string) => {
-    setSelectedModels([modelId]);
-    setShowModelDropdown(false);
+    // For multi-agent modes, allow selecting multiple models
+    if (currentModeConfig?.multiAgent) {
+      if (selectedModels.includes(modelId)) {
+        // Don't allow deselecting the last model
+        if (selectedModels.length > 1) {
+          setSelectedModels(selectedModels.filter(m => m !== modelId));
+        }
+      } else {
+        setSelectedModels([...selectedModels, modelId]);
+      }
+    } else {
+      // For single-agent modes, select only one model
+      setSelectedModels([modelId]);
+      setShowModelDropdown(false);
+    }
   };
 
   useEffect(() => {
@@ -180,7 +193,11 @@ export function ChatInterface() {
             className="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-gray-100 transition-all duration-200 group"
           >
             <span className="text-xl">{selectedModel?.avatar || '🤖'}</span>
-            <span className="font-semibold text-gray-800">{selectedModel?.name || 'انتخاب مدل'}</span>
+            <span className="font-semibold text-gray-800">
+              {selectedModels.length > 1 
+                ? `${selectedModels.length} مدل انتخاب شده`
+                : selectedModel?.name || 'انتخاب مدل'}
+            </span>
             <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${showModelDropdown ? 'rotate-180' : ''}`} />
           </button>
           
@@ -194,7 +211,11 @@ export function ChatInterface() {
                 className="absolute top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden z-50"
               >
                 <div className="p-2">
-                  <p className="text-xs font-medium text-gray-500 px-3 py-2">انتخاب مدل هوش مصنوعی</p>
+                  <p className="text-xs font-medium text-gray-500 px-3 py-2">
+                    {currentModeConfig?.multiAgent 
+                      ? 'انتخاب مدل‌ها (چند انتخابی)'
+                      : 'انتخاب مدل هوش مصنوعی'}
+                  </p>
                   {AI_MODELS.map((model) => (
                     <button
                       key={model.id}
