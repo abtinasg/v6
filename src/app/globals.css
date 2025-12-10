@@ -30,10 +30,15 @@ body {
   min-height: 100vh;
 }
 
-/* Custom scrollbar - dark theme */
+/* Premium gradient background with subtle depth */
+.premium-bg {
+  background: linear-gradient(180deg, var(--background) 0%, var(--background-subtle) 100%);
+}
+
+/* Custom scrollbar - refined dark theme */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -41,12 +46,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 2px;
+  background: #27272A;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: #3F3F46;
 }
 
 /* Hide scrollbar for mobile */
@@ -70,7 +75,7 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -83,41 +88,60 @@ body {
     opacity: 1;
   }
   50% {
-    opacity: 0.7;
+    opacity: 0.6;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(34, 211, 238, 0.12);
   }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .animate-pulse-subtle {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
 
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
 /* Loading dots animation */
 .animate-pulse-delay-0 {
-  animation: pulse 1s ease-in-out infinite;
+  animation: pulse 1.2s ease-in-out infinite;
   animation-delay: 0ms;
 }
 
 .animate-pulse-delay-150 {
-  animation: pulse 1s ease-in-out infinite;
+  animation: pulse 1.2s ease-in-out infinite;
   animation-delay: 150ms;
 }
 
 .animate-pulse-delay-300 {
-  animation: pulse 1s ease-in-out infinite;
+  animation: pulse 1.2s ease-in-out infinite;
   animation-delay: 300ms;
 }
 
-/* Typography */
+/* Typography - Premium spacing */
 .prose p {
-  margin-bottom: 1em;
+  margin-bottom: 1.25em;
 }
 
 .prose p:last-child {
   margin-bottom: 0;
+}
+
+/* Premium text rendering */
+.text-premium {
+  letter-spacing: -0.01em;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 @layer utilities {

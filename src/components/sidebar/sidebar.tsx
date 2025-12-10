@@ -185,14 +185,14 @@ export function Sidebar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-md z-40"
             />
             <motion.aside
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="lg:hidden fixed right-0 top-0 w-80 h-screen z-50"
+              transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+              className="lg:hidden fixed right-0 top-0 w-80 h-screen z-50 shadow-soft"
             >
               {sidebarContent}
             </motion.aside>

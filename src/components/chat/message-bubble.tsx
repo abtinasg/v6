@@ -20,7 +20,7 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
       className="flex gap-5 px-6 py-6"
@@ -35,7 +35,7 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
       </div>
       
       {/* Content */}
-      <div className="flex-1 min-w-0 pt-1">
+      <div className="flex-1 min-w-0 pt-1.5">
         {/* Name */}
         <p className="text-xs font-semibold mb-3 text-muted-dark/80">
           {role === 'user' ? 'شما' : displayName}

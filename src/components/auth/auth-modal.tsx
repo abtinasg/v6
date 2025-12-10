@@ -141,14 +141,14 @@ export function AuthModal() {
 
   return (
     <Modal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)}>
-      <div className="text-center mb-6">
-        <div className="w-14 h-14 bg-background rounded-2xl flex items-center justify-center mx-auto mb-4">
+      <div className="text-center mb-8">
+        <div className="w-16 h-16 bg-background rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-soft-sm">
           <span className="text-2xl">✦</span>
         </div>
-        <h2 className="text-xl font-bold text-foreground mb-2">
+        <h2 className="text-2xl font-bold text-foreground mb-3 tracking-tight">
           {step === 'phone' ? 'ورود به HUNO' : 'تایید شماره موبایل'}
         </h2>
-        <p className="text-muted text-sm">
+        <p className="text-muted text-sm leading-relaxed">
           {step === 'phone' 
             ? 'برای ادامه، شماره موبایل خود را وارد کنید'
             : `کد ۶ رقمی ارسال شده به ${phone} را وارد کنید`
@@ -161,7 +161,7 @@ export function AuthModal() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           onSubmit={handlePhoneSubmit}
-          className="space-y-4"
+          className="space-y-5"
         >
           <Input
             type="tel"
@@ -186,9 +186,9 @@ export function AuthModal() {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="space-y-4"
+          className="space-y-5"
         >
-          <div className="flex justify-center gap-2" dir="ltr">
+          <div className="flex justify-center gap-2.5" dir="ltr">
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -199,7 +199,7 @@ export function AuthModal() {
                 value={digit}
                 onChange={(e) => handleOtpChange(index, e.target.value)}
                 onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                className="w-11 h-12 text-center text-xl font-bold rounded-xl bg-background border border-border text-foreground focus:border-accent/50 outline-none transition-all"
+                className="w-12 h-14 text-center text-xl font-bold rounded-2xl bg-background border border-border-subtle/40 text-foreground focus:border-accent/50 focus:ring-1 focus:ring-accent/20 outline-none transition-all shadow-soft-sm"
               />
             ))}
           </div>
@@ -210,14 +210,14 @@ export function AuthModal() {
           
           <div className="text-center">
             {countdown > 0 ? (
-              <p className="text-muted text-sm">
+              <p className="text-muted-foreground text-sm">
                 ارسال مجدد کد تا {Math.floor(countdown / 60)}:{String(countdown % 60).padStart(2, '0')}
               </p>
             ) : (
               <button
                 type="button"
                 onClick={resendOtp}
-                className="text-foreground font-medium hover:text-accent transition-colors text-sm"
+                className="text-foreground font-semibold hover:text-accent transition-colors text-sm"
                 disabled={isLoading}
               >
                 ارسال مجدد کد

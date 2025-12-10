@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Loader2, Menu, ChevronDown, Check, Wifi, WifiOff } from 'lucide-react';
+import { Send, Loader2, Menu, ChevronDown, Check, Wifi, WifiOff, Sparkles } from 'lucide-react';
 import { useAppStore } from '@/store';
 import { Button } from '@/components/ui/button';
 import { MessageBubble } from './message-bubble';
@@ -213,13 +213,13 @@ export function ChatInterface() {
                 ? `${selectedModels.length} مدل`
                 : selectedModel?.name || 'انتخاب مدل'}
             </span>
-            <ChevronDown className={`w-4 h-4 text-muted transition-transform duration-200 ${showModelDropdown ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-4.5 h-4.5 text-muted transition-transform duration-200 ${showModelDropdown ? 'rotate-180' : ''}`} />
           </button>
           
           <AnimatePresence>
             {showModelDropdown && (
               <motion.div
-                initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.96 }}
                 transition={{ duration: 0.15, ease: 'easeOut' }}
@@ -293,7 +293,7 @@ export function ChatInterface() {
           <div className="h-full flex flex-col items-center justify-center px-6">
             {/* Welcome Card - Premium Hero */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="text-center max-w-md"
@@ -325,7 +325,7 @@ export function ChatInterface() {
             </motion.div>
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto py-4">
+          <div className="max-w-3xl mx-auto py-6">
             {messages.map((message) => (
               <MessageBubble
                 key={message.id}

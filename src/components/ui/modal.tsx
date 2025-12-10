@@ -21,23 +21,23 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50"
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            initial={{ opacity: 0, scale: 0.95, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            exit={{ opacity: 0, scale: 0.95, y: 12 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
             className={cn(
               'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50',
-              'w-full max-w-md bg-surface rounded-2xl shadow-soft border border-border p-6',
+              'w-full max-w-md bg-surface-elevated rounded-3xl shadow-soft border border-border-subtle/30 p-8',
               'max-h-[90vh] overflow-y-auto',
               className
             )}
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-surface-hover transition-colors"
+              className="absolute top-5 right-5 p-2.5 rounded-2xl hover:bg-surface-hover transition-all duration-200"
             >
               <X className="w-5 h-5 text-muted" />
             </button>
