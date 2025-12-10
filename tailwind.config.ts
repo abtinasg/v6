@@ -47,6 +47,7 @@ const config: Config = {
         '2xl': '1rem',
         '3xl': '1.5rem',
         '4xl': '2rem',
+        'hero': '1.75rem', // 28px - for hero icon container
       },
     },
   },

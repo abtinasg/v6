@@ -299,8 +299,8 @@ export function ChatInterface() {
               className="text-center max-w-md"
             >
               {/* HUNO Icon - Enhanced with depth and glow */}
-              <div className="w-24 h-24 bg-gradient-to-b from-surface-elevated to-surface rounded-[28px] flex items-center justify-center mx-auto mb-8 shadow-soft animate-glow-pulse relative">
-                <div className="absolute inset-0 rounded-[28px] bg-gradient-to-b from-white/[0.03] to-transparent" />
+              <div className="w-24 h-24 bg-gradient-to-b from-surface-elevated to-surface rounded-hero flex items-center justify-center mx-auto mb-8 shadow-soft animate-glow-pulse relative">
+                <div className="absolute inset-0 rounded-hero bg-gradient-to-b from-white/[0.03] to-transparent" />
                 <Sparkles className="w-10 h-10 text-accent/90" />
               </div>
               
