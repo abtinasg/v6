@@ -7,17 +7,19 @@ export interface AIModel {
   creditCost: number;
   avatar: string;
   color: string;
+  openRouterId: string; // OpenRouter API model identifier
 }
 
 export const AI_MODELS: AIModel[] = [
   {
-    id: 'gpt-5.1',
-    name: 'GPT-5.1',
+    id: 'gpt-4.1',
+    name: 'GPT-4.1',
     provider: 'openai',
     description: 'OpenAI\'s latest model with advanced reasoning',
     creditCost: 5,
     avatar: '🟢',
     color: '#10a37f',
+    openRouterId: 'openai/gpt-4.1',
   },
   {
     id: 'o3',
@@ -27,33 +29,37 @@ export const AI_MODELS: AIModel[] = [
     creditCost: 8,
     avatar: '⚡',
     color: '#ff6b35',
+    openRouterId: 'openai/o3',
   },
   {
-    id: 'claude-sonnet-4.5',
-    name: 'Claude Sonnet 4.5',
+    id: 'claude-sonnet-4',
+    name: 'Claude Sonnet 4',
     provider: 'anthropic',
     description: 'Anthropic\'s balanced and capable model',
     creditCost: 4,
     avatar: '🟠',
     color: '#d4a373',
+    openRouterId: 'anthropic/claude-sonnet-4',
   },
   {
-    id: 'claude-opus-4.5',
-    name: 'Claude Opus 4.5',
+    id: 'claude-opus-4',
+    name: 'Claude Opus 4',
     provider: 'anthropic',
     description: 'Anthropic\'s most powerful model',
     creditCost: 10,
     avatar: '🟣',
     color: '#7c3aed',
+    openRouterId: 'anthropic/claude-opus-4',
   },
   {
-    id: 'gemini-3-pro',
-    name: 'Gemini 3 Pro',
+    id: 'gemini-2.5-pro',
+    name: 'Gemini 2.5 Pro',
     provider: 'google',
     description: 'Google\'s advanced multimodal AI',
     creditCost: 5,
     avatar: '💎',
     color: '#4285f4',
+    openRouterId: 'google/gemini-2.5-pro-preview',
   },
   {
     id: 'deepseek-r1',
@@ -63,24 +69,27 @@ export const AI_MODELS: AIModel[] = [
     creditCost: 3,
     avatar: '🔍',
     color: '#00bcd4',
+    openRouterId: 'deepseek/deepseek-r1',
   },
   {
-    id: 'grok-4.1',
-    name: 'Grok 4.1',
+    id: 'grok-3',
+    name: 'Grok 3',
     provider: 'xai',
     description: 'xAI\'s witty and knowledgeable model',
     creditCost: 5,
     avatar: '🦊',
     color: '#f97316',
+    openRouterId: 'x-ai/grok-3',
   },
   {
-    id: 'llama-4',
-    name: 'Llama 4',
+    id: 'llama-4-maverick',
+    name: 'Llama 4 Maverick',
     provider: 'meta',
     description: 'Meta\'s open-source powerhouse',
     creditCost: 2,
     avatar: '🦙',
     color: '#0668e1',
+    openRouterId: 'meta-llama/llama-4-maverick',
   },
 ];
 

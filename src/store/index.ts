@@ -45,7 +45,7 @@ export const useAppStore = create<AppState>()(
       chats: [],
       currentChatId: null,
       messages: [],
-      selectedModels: ['gpt-5.1'],
+      selectedModels: ['gpt-4.1'],
       currentMode: 'chat',
       sidebarOpen: false,
       isLoading: false,
