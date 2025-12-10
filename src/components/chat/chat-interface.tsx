@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Loader2, Menu, ChevronDown, Check } from 'lucide-react';
+import { Send, Loader2, Menu, ChevronDown, Check, Wifi, WifiOff } from 'lucide-react';
 import { useAppStore } from '@/store';
 import { Button } from '@/components/ui/button';
 import { MessageBubble } from './message-bubble';
@@ -41,12 +41,26 @@ export function ChatInterface() {
 
   const [input, setInput] = useState('');
   const [showModelDropdown, setShowModelDropdown] = useState(false);
+  const [isOnline, setIsOnline] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const modelDropdownRef = useRef<HTMLDivElement>(null);
 
   const currentModeConfig = CHAT_MODES.find(m => m.id === currentMode);
   const selectedModel = AI_MODELS.find(m => m.id === selectedModels[0]);
+
+  // Check online status
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -176,65 +190,65 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-screen lg:mr-72 bg-gradient-to-b from-gray-50 to-white">
-      {/* Header with AI Model Selector */}
-      <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white/90 backdrop-blur-md sticky top-0 z-10 shadow-sm">
+    <div className="flex flex-col h-screen lg:mr-72 bg-background">
+      {/* Header - Minimal with Model Selector + Connection Status */}
+      <header className="flex items-center justify-between px-4 py-3 border-b border-border/50 bg-background sticky top-0 z-10">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="lg:hidden p-2.5 rounded-xl hover:bg-gray-100 transition-all duration-200"
+          className="lg:hidden p-2.5 rounded-full hover:bg-surface transition-colors"
         >
-          <Menu className="w-5 h-5 text-gray-600" />
+          <Menu className="w-5 h-5 text-muted" />
         </button>
         
-        {/* AI Model Selector - ChatGPT Style */}
+        {/* AI Model Selector - Minimal */}
         <div className="relative flex-1 flex justify-center" ref={modelDropdownRef}>
           <button
             onClick={() => setShowModelDropdown(!showModelDropdown)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-gray-100 transition-all duration-200 group"
+            className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-surface transition-colors group"
           >
-            <span className="text-xl">{selectedModel?.avatar || '🤖'}</span>
-            <span className="font-semibold text-gray-800">
+            <span className="text-lg">{selectedModel?.avatar || '✦'}</span>
+            <span className="font-medium text-foreground text-sm">
               {selectedModels.length > 1 
-                ? `${selectedModels.length} مدل انتخاب شده`
+                ? `${selectedModels.length} مدل`
                 : selectedModel?.name || 'انتخاب مدل'}
             </span>
-            <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${showModelDropdown ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-4 h-4 text-muted transition-transform duration-200 ${showModelDropdown ? 'rotate-180' : ''}`} />
           </button>
           
           <AnimatePresence>
             {showModelDropdown && (
               <motion.div
-                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                initial={{ opacity: 0, y: -8, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                transition={{ duration: 0.15 }}
-                className="absolute top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden z-50"
+                exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
+                className="absolute top-full mt-2 w-64 bg-surface rounded-2xl shadow-soft border border-border overflow-hidden z-50"
               >
-                <div className="p-2">
-                  <p className="text-xs font-medium text-gray-500 px-3 py-2">
+                <div className="p-1.5">
+                  <p className="text-xs font-medium text-muted px-3 py-2">
                     {currentModeConfig?.multiAgent 
-                      ? 'انتخاب مدل‌ها (چند انتخابی)'
-                      : 'انتخاب مدل هوش مصنوعی'}
+                      ? 'انتخاب مدل‌ها'
+                      : 'مدل هوش مصنوعی'}
                   </p>
                   {AI_MODELS.map((model) => (
                     <button
                       key={model.id}
                       onClick={() => handleModelSelect(model.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors ${
                         selectedModels.includes(model.id)
-                          ? 'bg-gray-900 text-white'
-                          : 'hover:bg-gray-50 text-gray-700'
+                          ? 'bg-accent/10 text-accent'
+                          : 'hover:bg-surface-hover text-foreground'
                       }`}
                     >
-                      <span className="text-lg">{model.avatar}</span>
+                      <span className="text-base">{model.avatar}</span>
                       <div className="flex-1 text-right">
                         <p className="font-medium text-sm">{model.name}</p>
-                        <p className={`text-xs ${selectedModels.includes(model.id) ? 'text-gray-300' : 'text-gray-500'}`}>
+                        <p className={`text-xs ${selectedModels.includes(model.id) ? 'text-accent/70' : 'text-muted'}`}>
                           {model.creditCost} اعتبار
                         </p>
                       </div>
                       {selectedModels.includes(model.id) && (
-                        <Check className="w-4 h-4" />
+                        <Check className="w-4 h-4 text-accent" />
                       )}
                     </button>
                   ))}
@@ -244,42 +258,63 @@ export function ChatInterface() {
           </AnimatePresence>
         </div>
 
+        {/* Connection Status */}
         <div className="flex items-center gap-2">
-          {currentModeConfig?.multiAgent && (
-            <span className="text-xs bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 py-1 rounded-full font-medium shadow-sm">
-              چند عاملی
-            </span>
-          )}
+          <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs ${
+            isOnline ? 'text-accent' : 'text-red-400'
+          }`}>
+            {isOnline ? (
+              <>
+                <Wifi className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">آنلاین</span>
+              </>
+            ) : (
+              <>
+                <WifiOff className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">آفلاین</span>
+              </>
+            )}
+          </div>
         </div>
       </header>
 
       {/* Messages */}
       <main className="flex-1 overflow-y-auto">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center px-4">
+          <div className="h-full flex flex-col items-center justify-center px-6">
+            {/* Welcome Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-lg"
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              className="text-center max-w-sm"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center text-4xl mb-6 mx-auto shadow-inner">
-                {currentModeConfig?.icon}
+              {/* HUNO Icon */}
+              <div className="w-20 h-20 bg-surface rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <span className="text-4xl">✦</span>
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                {currentModeConfig?.nameFa}
-              </h2>
-              <p className="text-gray-500 leading-relaxed text-lg">
-                {currentModeConfig?.description}
+              
+              {/* HUNO Name */}
+              <h1 className="text-3xl font-bold text-foreground mb-3 tracking-tight">
+                HUNO
+              </h1>
+              
+              {/* Tagline */}
+              <p className="text-muted text-base leading-relaxed mb-8">
+                دستیار هوش مصنوعی شما
+                <br />
+                <span className="text-sm">آماده پاسخ‌گویی به سوالات شما هستم</span>
               </p>
-              {currentModeConfig?.multiAgent && (
-                <p className="text-sm text-gray-400 mt-6 bg-gray-50 px-4 py-2 rounded-xl inline-block">
-                  ✨ در این حالت، چند هوش مصنوعی با هم همکاری می‌کنند
-                </p>
-              )}
+
+              {/* Mode indicator */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface rounded-full text-sm text-muted">
+                <span>{currentModeConfig?.icon}</span>
+                <span>حالت {currentModeConfig?.nameFa}</span>
+              </div>
             </motion.div>
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto py-4">
             {messages.map((message) => (
               <MessageBubble
                 key={message.id}
@@ -293,13 +328,17 @@ export function ChatInterface() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="flex gap-3 px-4 py-6 bg-gradient-to-r from-gray-50 to-white"
+                className="flex gap-4 px-4 py-5"
               >
-                <div className="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                  <Loader2 className="w-5 h-5 animate-spin text-gray-500" />
+                <div className="w-9 h-9 rounded-full bg-surface flex items-center justify-center shadow-soft">
+                  <Loader2 className="w-4 h-4 animate-spin text-accent" />
                 </div>
-                <div className="flex-1 flex items-center">
-                  <p className="text-sm text-gray-500">در حال پردازش...</p>
+                <div className="flex-1 flex items-center pt-1">
+                  <div className="flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse-delay-0" />
+                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse-delay-150" />
+                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse-delay-300" />
+                  </div>
                 </div>
               </motion.div>
             )}
@@ -308,45 +347,47 @@ export function ChatInterface() {
         )}
       </main>
 
-      {/* Input with Mode Selector */}
-      <div className="border-t border-gray-200 bg-white p-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+      {/* Input Area with Mode Selector */}
+      <div className="border-t border-border/50 bg-background px-4 py-4">
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-          {/* Chat Mode Selector Pills */}
-          <div className="flex items-center justify-center gap-2 mb-4">
+          {/* Chat Mode Selector - Modern Rounded Pills */}
+          <div className="flex items-center justify-center gap-2 mb-4 overflow-x-auto pb-1">
             {CHAT_MODES.filter(mode => mode.id !== 'roundtable').map((mode) => (
               <button
                 key={mode.id}
                 type="button"
                 onClick={() => setCurrentMode(mode.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                   currentMode === mode.id
-                    ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/25'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-surface-active text-foreground'
+                    : 'text-muted hover:text-foreground hover:bg-surface'
                 }`}
               >
-                <span>{mode.icon}</span>
+                <span className="text-base">{mode.icon}</span>
                 <span>{mode.nameFa}</span>
               </button>
             ))}
           </div>
           
-          {/* Input Area */}
-          <div className="relative flex items-end gap-3 bg-gray-50 rounded-2xl p-3 border border-gray-200 focus-within:border-gray-400 focus-within:shadow-lg focus-within:shadow-gray-200/50 transition-all duration-200">
+          {/* Input Area - Minimal */}
+          <div className="relative flex items-end gap-3 bg-surface rounded-2xl p-3">
             <textarea
               ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="پیام خود را بنویسید..."
-              className="flex-1 resize-none bg-transparent px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:outline-none max-h-[200px] text-base"
+              className="flex-1 resize-none bg-transparent px-2 py-2 text-foreground placeholder:text-muted focus:outline-none max-h-[200px] text-[15px]"
               rows={1}
               dir="rtl"
             />
+            
+            {/* Floating Send Button - Larger */}
             <Button
               type="submit"
-              size="md"
+              size="lg"
               disabled={!input.trim() || isLoading}
-              className="rounded-xl shadow-lg shadow-gray-900/25 hover:shadow-xl transition-all duration-200"
+              className="rounded-full w-12 h-12 p-0 flex items-center justify-center"
             >
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -356,8 +397,8 @@ export function ChatInterface() {
             </Button>
           </div>
           
-          <p className="text-xs text-gray-400 text-center mt-3">
-            🤖 AI می‌تواند اشتباه کند. اطلاعات مهم را بررسی کنید.
+          <p className="text-xs text-muted/60 text-center mt-3">
+            HUNO می‌تواند اشتباه کند. اطلاعات مهم را بررسی کنید.
           </p>
         </form>
       </div>

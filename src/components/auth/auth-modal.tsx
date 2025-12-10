@@ -142,10 +142,13 @@ export function AuthModal() {
   return (
     <Modal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)}>
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          {step === 'phone' ? 'ورود به حساب کاربری' : 'تایید شماره موبایل'}
+        <div className="w-14 h-14 bg-background rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <span className="text-2xl">✦</span>
+        </div>
+        <h2 className="text-xl font-bold text-foreground mb-2">
+          {step === 'phone' ? 'ورود به HUNO' : 'تایید شماره موبایل'}
         </h2>
-        <p className="text-gray-500">
+        <p className="text-muted text-sm">
           {step === 'phone' 
             ? 'برای ادامه، شماره موبایل خود را وارد کنید'
             : `کد ۶ رقمی ارسال شده به ${phone} را وارد کنید`
@@ -196,25 +199,25 @@ export function AuthModal() {
                 value={digit}
                 onChange={(e) => handleOtpChange(index, e.target.value)}
                 onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                className="w-12 h-14 text-center text-xl font-bold rounded-xl border border-gray-200 focus:border-gray-400 focus:ring-2 focus:ring-gray-200 outline-none transition-all"
+                className="w-11 h-12 text-center text-xl font-bold rounded-xl bg-background border border-border text-foreground focus:border-accent/50 outline-none transition-all"
               />
             ))}
           </div>
           
           {error && (
-            <p className="text-center text-red-500 text-sm">{error}</p>
+            <p className="text-center text-red-400 text-sm">{error}</p>
           )}
           
           <div className="text-center">
             {countdown > 0 ? (
-              <p className="text-gray-500">
+              <p className="text-muted text-sm">
                 ارسال مجدد کد تا {Math.floor(countdown / 60)}:{String(countdown % 60).padStart(2, '0')}
               </p>
             ) : (
               <button
                 type="button"
                 onClick={resendOtp}
-                className="text-gray-700 font-medium hover:text-black transition-colors"
+                className="text-foreground font-medium hover:text-accent transition-colors text-sm"
                 disabled={isLoading}
               >
                 ارسال مجدد کد

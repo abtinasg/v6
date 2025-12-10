@@ -1,24 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import { AuthModal } from "@/components/auth/auth-modal";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
 export const metadata: Metadata = {
-  title: "AI Studio | هوش مصنوعی پیشرفته",
-  description: "پلتفرم هوش مصنوعی پیشرفته با قابلیت‌های تحلیل، ایده‌پردازی، مناظره و حل مسئله",
-  keywords: ["هوش مصنوعی", "AI", "چت بات", "GPT", "Claude", "Gemini"],
+  title: "HUNO | دستیار هوش مصنوعی",
+  description: "دستیار هوش مصنوعی پیشرفته با قابلیت‌های تحلیل، ایده‌پردازی، مناظره و حل مسئله",
+  keywords: ["هوش مصنوعی", "AI", "چت بات", "GPT", "Claude", "Gemini", "HUNO"],
 };
 
 export const viewport: Viewport = {
@@ -35,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
-      >
+      <body className="antialiased bg-background text-foreground">
         <Sidebar />
         <AuthModal />
         {children}
