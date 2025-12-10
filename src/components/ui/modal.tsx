@@ -21,7 +21,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -30,16 +30,16 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className={cn(
               'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50',
-              'w-full max-w-md bg-white rounded-2xl shadow-2xl p-6',
+              'w-full max-w-md bg-surface rounded-2xl shadow-soft border border-border p-6',
               'max-h-[90vh] overflow-y-auto',
               className
             )}
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-surface-hover transition-colors"
             >
-              <X className="w-5 h-5 text-gray-500" />
+              <X className="w-5 h-5 text-muted" />
             </button>
             {children}
           </motion.div>

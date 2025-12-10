@@ -13,24 +13,24 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-foreground mb-1.5">
             {label}
           </label>
         )}
         <input
           ref={ref}
           className={cn(
-            'w-full px-4 py-3 text-base rounded-xl border border-gray-200 bg-white',
-            'placeholder:text-gray-400 text-gray-900',
-            'focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-400',
+            'w-full px-4 py-3 text-base rounded-xl border border-border bg-surface',
+            'placeholder:text-muted text-foreground',
+            'focus:outline-none focus:border-accent/50',
             'transition-all duration-200',
-            error && 'border-red-300 focus:ring-red-100 focus:border-red-500',
+            error && 'border-red-500/50 focus:border-red-500',
             className
           )}
           {...props}
         />
         {error && (
-          <p className="mt-1.5 text-sm text-red-500">{error}</p>
+          <p className="mt-1.5 text-sm text-red-400">{error}</p>
         )}
       </div>
     );
