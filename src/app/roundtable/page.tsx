@@ -124,7 +124,7 @@ export default function RoundtablePage() {
             </Link>
 
             <div className="flex-1 text-right">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-muted-dark/70 mb-1">{ROUND_TABLE_TITLE_FA}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-dark/70 mb-1">{ROUND_TABLE_TITLE_FA}</p>
               <h1 className="text-xl sm:text-2xl font-extrabold">{`${ROUND_TABLE_TITLE_FA} هوش مصنوعی`}</h1>
               <p className="text-sm text-muted">یک میزگرد با شخصیت‌های معروف بسازید و نظرات متفاوت بگیرید</p>
             </div>
@@ -206,7 +206,7 @@ export default function RoundtablePage() {
                     >
                       <span className="text-lg">{persona.avatar}</span>
                       <span className="font-semibold">{persona.nameFa}</span>
-                      <span className="text-[10px] text-muted-dark bg-background/70 px-2 py-0.5 rounded-full">
+                      <span className="text-xs text-muted-dark bg-background/70 px-2 py-0.5 rounded-full">
                         {CATEGORY_LABELS[persona.category]?.badge || persona.category}
                       </span>
                       <span className="w-5 h-5 rounded-full bg-border-subtle flex items-center justify-center text-muted text-xs hover:text-red-300 hover:bg-red-500/20 transition-colors">
@@ -251,12 +251,12 @@ export default function RoundtablePage() {
                         <div className="flex-1 min-w-0 space-y-1">
                           <div className="flex items-center justify-between gap-2">
                             <h4 className="font-bold text-foreground">{persona.nameFa}</h4>
-                            <span className="text-[11px] text-muted-dark bg-surface-hover px-2 py-1 rounded-lg">
+                            <span className="text-xs text-muted-dark bg-surface-hover px-2 py-1 rounded-lg">
                               {CATEGORY_LABELS[persona.category]?.badge || persona.category}
                             </span>
                           </div>
                           <p className="text-xs text-muted truncate">{persona.description}</p>
-                          <p className="text-[11px] text-muted-dark/80 truncate">{persona.thinkingStyle}</p>
+                          <p className="text-xs text-muted-dark/80 truncate">{persona.thinkingStyle}</p>
                         </div>
                       </div>
                     </motion.button>
