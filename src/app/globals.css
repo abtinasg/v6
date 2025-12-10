@@ -6,15 +6,15 @@
 
 :root {
   --font-vazirmatn: 'Vazirmatn', system-ui, sans-serif;
-  --background: #0A0A0B;
-  --background-subtle: #0C0C0D;
-  --surface: #121214;
-  --surface-elevated: #141416;
-  --foreground: #FAFAFA;
-  --foreground-secondary: #E4E4E7;
-  --muted: #A1A1AA;
-  --muted-foreground: #71717A;
+  --background: #0E0E0E;
+  --background-elevated: #111111;
+  --surface: #141414;
+  --surface-elevated: #171717;
+  --foreground: #F5F5F5;
+  --muted: #9CA3AF;
+  --muted-dark: #6B7280;
   --accent: #22D3EE;
+  --accent-soft: #06B6D4;
 }
 
 * {

@@ -191,24 +191,24 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-screen lg:mr-72 bg-background premium-bg">
-      {/* Header - Premium Minimal with Model Selector + Connection Status */}
-      <header className="flex items-center justify-between px-5 py-4 border-b border-border-subtle/40 bg-background/80 backdrop-blur-xl sticky top-0 z-10">
+    <div className="flex flex-col h-screen lg:mr-72 bg-background">
+      {/* Header - Premium with Model Selector + Connection Status */}
+      <header className="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-background-elevated/70 backdrop-blur-md sticky top-0 z-10">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="lg:hidden p-3 rounded-2xl hover:bg-surface-hover transition-all duration-200"
+          className="lg:hidden p-3.5 rounded-2xl hover:bg-surface-hover transition-all duration-200"
         >
-          <Menu className="w-5.5 h-5.5 text-muted" />
+          <Menu className="w-5 h-5 text-foreground/90" />
         </button>
         
-        {/* AI Model Selector - Premium Minimal */}
+        {/* AI Model Selector - Premium */}
         <div className="relative flex-1 flex justify-center" ref={modelDropdownRef}>
           <button
             onClick={() => setShowModelDropdown(!showModelDropdown)}
-            className="flex items-center gap-3 px-5 py-2.5 rounded-2xl hover:bg-surface-hover/80 transition-all duration-200 group"
+            className="flex items-center gap-3 px-6 py-3 rounded-[18px] hover:bg-surface-elevated/50 transition-all duration-200 group"
           >
             <span className="text-xl">{selectedModel?.avatar || '✦'}</span>
-            <span className="font-semibold text-foreground text-sm tracking-tight">
+            <span className="font-semibold text-foreground text-base">
               {selectedModels.length > 1 
                 ? `${selectedModels.length} مدل`
                 : selectedModel?.name || 'انتخاب مدل'}
@@ -221,12 +221,12 @@ export function ChatInterface() {
               <motion.div
                 initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute top-full mt-3 w-72 bg-surface-elevated rounded-3xl shadow-soft border border-border-subtle/60 overflow-hidden z-50"
+                exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
+                className="absolute top-full mt-3 w-72 bg-surface-elevated/95 rounded-[20px] shadow-premium border border-border-subtle overflow-hidden z-50 backdrop-blur-xl"
               >
                 <div className="p-2">
-                  <p className="text-xs font-semibold text-muted px-4 py-3">
+                  <p className="text-xs font-semibold text-muted-dark px-4 py-3">
                     {currentModeConfig?.multiAgent 
                       ? 'انتخاب مدل‌ها'
                       : 'مدل هوش مصنوعی'}
@@ -235,21 +235,21 @@ export function ChatInterface() {
                     <button
                       key={model.id}
                       onClick={() => handleModelSelect(model.id)}
-                      className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-150 ${
+                      className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-[16px] transition-all duration-200 ${
                         selectedModels.includes(model.id)
-                          ? 'bg-accent-subtle text-accent'
+                          ? 'bg-accent/10 text-accent shadow-glow-soft'
                           : 'hover:bg-surface-hover text-foreground'
                       }`}
                     >
                       <span className="text-lg">{model.avatar}</span>
                       <div className="flex-1 text-right">
-                        <p className="font-medium text-sm">{model.name}</p>
-                        <p className={`text-xs mt-0.5 ${selectedModels.includes(model.id) ? 'text-accent/70' : 'text-muted-foreground'}`}>
+                        <p className="font-semibold text-sm">{model.name}</p>
+                        <p className={`text-xs ${selectedModels.includes(model.id) ? 'text-accent/70' : 'text-muted'}`}>
                           {model.creditCost} اعتبار
                         </p>
                       </div>
                       {selectedModels.includes(model.id) && (
-                        <Check className="w-4.5 h-4.5 text-accent" />
+                        <Check className="w-5 h-5 text-accent" />
                       )}
                     </button>
                   ))}
@@ -259,18 +259,18 @@ export function ChatInterface() {
           </AnimatePresence>
         </div>
 
-        {/* Connection Status + Credits */}
+        {/* Connection Status */}
         <div className="flex items-center gap-3">
-          {/* User Credits Display */}
+          {/* Credit Badge - Inline */}
           {isAuthenticated && user && (
-            <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-2xl bg-surface-hover/50 border border-border-subtle/30">
-              <span className="text-accent text-sm">💎</span>
-              <span className="text-sm font-semibold text-foreground">{formatCredits(user.credits)}</span>
+            <div className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-[14px] text-sm font-semibold bg-gradient-to-br from-accent/15 to-accent/5 text-accent border border-accent/20">
+              <span className="text-base">💎</span>
+              <span>{formatCredits(user.credits)}</span>
             </div>
           )}
           
-          <div className={`flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-medium ${
-            isOnline ? 'text-accent bg-accent-subtle' : 'text-red-400 bg-red-500/10'
+          <div className={`flex items-center gap-2 px-4 py-2.5 rounded-[14px] text-sm font-medium ${
+            isOnline ? 'text-accent bg-accent/10' : 'text-red-400 bg-red-400/10'
           }`}>
             {isOnline ? (
               <>
@@ -290,35 +290,35 @@ export function ChatInterface() {
       {/* Messages */}
       <main className="flex-1 overflow-y-auto">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center px-8">
-            {/* Welcome Card - Premium */}
+          <div className="h-full flex flex-col items-center justify-center px-6">
+            {/* Welcome Card - Premium Hero */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
               className="text-center max-w-md"
             >
               {/* HUNO Icon - Enhanced with depth and glow */}
-              <div className="w-24 h-24 bg-gradient-to-b from-surface-elevated to-surface rounded-hero flex items-center justify-center mx-auto mb-8 shadow-soft animate-glow-pulse relative">
-                <div className="absolute inset-0 rounded-hero bg-gradient-to-b from-white/[0.03] to-transparent" />
-                <Sparkles className="w-10 h-10 text-accent/90" />
+              <div className="w-28 h-28 bg-gradient-to-br from-surface-elevated to-surface rounded-[32px] flex items-center justify-center mx-auto mb-10 shadow-depth relative">
+                <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-accent/8 to-transparent"></div>
+                <div className="absolute inset-0 rounded-[32px] shadow-glow-soft"></div>
+                <span className="text-5xl relative z-10">✦</span>
               </div>
               
-              {/* HUNO Name - Weighted, clear with optimal spacing */}
-              <h1 className="text-4xl font-bold text-foreground mb-4 tracking-tight text-premium">
+              {/* HUNO Name - Bolder and clearer */}
+              <h1 className="text-5xl font-extrabold text-foreground mb-6 tracking-tight">
                 HUNO
               </h1>
               
-              {/* Tagline - Lighter, higher line-height for premium feel */}
-              <p className="text-foreground-secondary text-lg leading-loose mb-10">
+              {/* Tagline - Lighter with better spacing */}
+              <p className="text-muted text-lg leading-relaxed mb-12 opacity-90">
                 دستیار هوش مصنوعی شما
-              </p>
-              <p className="text-muted text-sm leading-relaxed">
-                آماده پاسخ‌گویی به سوالات شما هستم
+                <br />
+                <span className="text-base opacity-75 leading-loose block mt-2">آماده پاسخ‌گویی به سوالات شما هستم</span>
               </p>
 
-              {/* Mode indicator - Premium pill */}
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-surface-elevated/80 rounded-2xl text-sm text-muted mt-10 border border-border-subtle/30">
+              {/* Mode indicator - More premium */}
+              <div className="inline-flex items-center gap-3 px-6 py-3.5 bg-surface-elevated rounded-[18px] text-sm text-muted border border-border-subtle shadow-soft-sm">
                 <span className="text-lg">{currentModeConfig?.icon}</span>
                 <span className="font-medium">حالت {currentModeConfig?.nameFa}</span>
               </div>
@@ -339,16 +339,16 @@ export function ChatInterface() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="flex gap-5 px-5 py-6"
+                className="flex gap-5 px-6 py-6"
               >
-                <div className="w-10 h-10 rounded-2xl bg-surface-elevated flex items-center justify-center shadow-soft-sm">
-                  <Loader2 className="w-4.5 h-4.5 animate-spin text-accent" />
+                <div className="w-12 h-12 rounded-[18px] bg-surface-elevated flex items-center justify-center shadow-soft border border-border-subtle">
+                  <Loader2 className="w-5 h-5 animate-spin text-accent" />
                 </div>
-                <div className="flex-1 flex items-center pt-1.5">
+                <div className="flex-1 flex items-center pt-2">
                   <div className="flex gap-1.5">
-                    <span className="w-2 h-2 bg-muted/60 rounded-full animate-pulse-delay-0" />
-                    <span className="w-2 h-2 bg-muted/60 rounded-full animate-pulse-delay-150" />
-                    <span className="w-2 h-2 bg-muted/60 rounded-full animate-pulse-delay-300" />
+                    <span className="w-2 h-2 bg-muted rounded-full animate-pulse-delay-0" />
+                    <span className="w-2 h-2 bg-muted rounded-full animate-pulse-delay-150" />
+                    <span className="w-2 h-2 bg-muted rounded-full animate-pulse-delay-300" />
                   </div>
                 </div>
               </motion.div>
@@ -359,19 +359,19 @@ export function ChatInterface() {
       </main>
 
       {/* Input Area with Mode Selector - Premium */}
-      <div className="border-t border-border-subtle/30 bg-background/80 backdrop-blur-xl px-5 py-5">
+      <div className="border-t border-border-subtle bg-background-elevated/40 backdrop-blur-md px-6 py-6">
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-          {/* Chat Mode Selector - Modern Premium Pills */}
-          <div className="flex items-center justify-center gap-3 mb-5 overflow-x-auto pb-1">
+          {/* Chat Mode Selector - Premium Rounded Pills */}
+          <div className="flex items-center justify-center gap-3 mb-6 overflow-x-auto pb-1">
             {CHAT_MODES.filter(mode => mode.id !== 'roundtable').map((mode) => (
               <button
                 key={mode.id}
                 type="button"
                 onClick={() => setCurrentMode(mode.id)}
-                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                className={`flex items-center gap-2.5 px-6 py-3 rounded-[18px] text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
                   currentMode === mode.id
-                    ? 'bg-surface-active text-foreground shadow-soft-sm'
-                    : 'text-muted hover:text-foreground hover:bg-surface-hover/60'
+                    ? 'bg-surface-active text-foreground shadow-soft'
+                    : 'text-muted hover:text-foreground hover:bg-surface-hover'
                 }`}
               >
                 <span className="text-lg">{mode.icon}</span>
@@ -380,15 +380,15 @@ export function ChatInterface() {
             ))}
           </div>
           
-          {/* Input Area - Premium Modern Chat */}
-          <div className="relative flex items-end gap-4 bg-surface-elevated rounded-3xl p-4 shadow-input border border-border-subtle/20">
+          {/* Input Area - Modern with depth */}
+          <div className="relative flex items-end gap-4 bg-surface-elevated/95 rounded-[24px] p-5 border border-border-subtle shadow-depth backdrop-blur-sm">
             <textarea
               ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="پیام خود را بنویسید..."
-              className="flex-1 resize-none bg-transparent px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none max-h-[200px] text-[15px] leading-relaxed"
+              className="flex-1 resize-none bg-transparent px-3 py-3 text-foreground placeholder:text-muted-dark/70 focus:outline-none max-h-[200px] text-base"
               rows={1}
               dir="rtl"
             />
@@ -398,7 +398,7 @@ export function ChatInterface() {
               type="submit"
               size="lg"
               disabled={!input.trim() || isLoading}
-              className="rounded-2xl w-12 h-12 p-0 flex items-center justify-center shadow-glow-subtle"
+              className="rounded-[18px] w-14 h-14 p-0 flex items-center justify-center shadow-glow"
             >
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -408,7 +408,7 @@ export function ChatInterface() {
             </Button>
           </div>
           
-          <p className="text-xs text-muted-foreground text-center mt-4">
+          <p className="text-xs text-muted-dark/60 text-center mt-4">
             HUNO می‌تواند اشتباه کند. اطلاعات مهم را بررسی کنید.
           </p>
         </form>

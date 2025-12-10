@@ -11,17 +11,17 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-200 rounded-2xl focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed';
+    const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-200 rounded-[18px] focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed';
     
     const variants = {
-      primary: 'bg-accent text-background hover:bg-accent-hover shadow-glow-subtle hover:shadow-glow',
-      secondary: 'bg-surface-elevated text-foreground hover:bg-surface-hover border border-border-subtle/30',
-      ghost: 'bg-transparent text-muted hover:text-foreground hover:bg-surface-hover/60',
-      outline: 'border border-border-subtle bg-transparent text-foreground hover:bg-surface-hover/60',
+      primary: 'bg-accent text-background hover:bg-accent-hover shadow-glow hover:shadow-glow',
+      secondary: 'bg-surface-elevated text-foreground hover:bg-surface-hover shadow-soft',
+      ghost: 'bg-transparent text-muted hover:text-foreground hover:bg-surface-hover',
+      outline: 'border border-border-subtle bg-transparent text-foreground hover:bg-surface-hover',
     };
     
     const sizes = {
-      sm: 'px-4 py-2 text-sm',
+      sm: 'px-5 py-2.5 text-sm',
       md: 'px-6 py-3 text-sm',
       lg: 'px-7 py-3.5 text-base',
     };
