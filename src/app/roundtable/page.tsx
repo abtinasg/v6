@@ -116,7 +116,7 @@ export default function RoundtablePage() {
             </Link>
 
             <div className="flex-1 text-right">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-muted-dark/70 mb-1">Roundtable</p>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-muted-dark/70 mb-1">میزگرد</p>
               <h1 className="text-xl sm:text-2xl font-extrabold">میزگرد هوش مصنوعی</h1>
               <p className="text-sm text-muted">یک میزگرد با شخصیت‌های معروف بسازید و نظرات متفاوت بگیرید</p>
             </div>
@@ -250,7 +250,7 @@ export default function RoundtablePage() {
                           <div className="flex items-center justify-between gap-2">
                             <h4 className="font-bold text-foreground">{persona.nameFa}</h4>
                             <span className="text-[11px] text-muted-dark bg-surface-hover px-2 py-1 rounded-lg">
-                              {persona.name}
+                              {persona.nameFa}
                             </span>
                           </div>
                           <p className="text-xs text-muted truncate">{persona.description}</p>
