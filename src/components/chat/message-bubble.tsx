@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 import { AI_MODELS, ROUNDTABLE_PERSONAS } from '@/lib/models';
 
 interface MessageBubbleProps {
@@ -24,18 +23,10 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className={cn(
-        'flex gap-4 px-4 py-5',
-        role === 'user' ? '' : ''
-      )}
+      className="flex gap-4 px-4 py-5"
     >
       {/* Avatar */}
-      <div className={cn(
-        'w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-base shadow-soft',
-        role === 'user' 
-          ? 'bg-surface' 
-          : 'bg-surface'
-      )}>
+      <div className="w-9 h-9 rounded-full bg-surface flex items-center justify-center flex-shrink-0 text-base shadow-soft">
         {role === 'user' ? (
           <span className="text-muted">👤</span>
         ) : (
@@ -46,10 +37,7 @@ export function MessageBubble({ role, content, model, persona, isStreaming }: Me
       {/* Content */}
       <div className="flex-1 min-w-0 pt-1">
         {/* Name */}
-        <p className={cn(
-          'text-xs font-medium mb-2',
-          role === 'user' ? 'text-muted' : 'text-muted'
-        )}>
+        <p className="text-xs font-medium mb-2 text-muted">
           {role === 'user' ? 'شما' : displayName}
         </p>
         

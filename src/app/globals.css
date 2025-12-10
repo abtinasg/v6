@@ -91,6 +91,22 @@ body {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
 
+/* Loading dots animation */
+.animate-pulse-delay-0 {
+  animation: pulse 1s ease-in-out infinite;
+  animation-delay: 0ms;
+}
+
+.animate-pulse-delay-150 {
+  animation: pulse 1s ease-in-out infinite;
+  animation-delay: 150ms;
+}
+
+.animate-pulse-delay-300 {
+  animation: pulse 1s ease-in-out infinite;
+  animation-delay: 300ms;
+}
+
 /* Typography */
 .prose p {
   margin-bottom: 1em;

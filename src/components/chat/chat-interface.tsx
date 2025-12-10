@@ -335,9 +335,9 @@ export function ChatInterface() {
                 </div>
                 <div className="flex-1 flex items-center pt-1">
                   <div className="flex gap-1">
-                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
+                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse-delay-0" />
+                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse-delay-150" />
+                    <span className="w-1.5 h-1.5 bg-muted rounded-full animate-pulse-delay-300" />
                   </div>
                 </div>
               </motion.div>
